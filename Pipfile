@@ -11,16 +11,15 @@ Django = "*"
 django-extensions = "*"
 dj-database-url = "*"
 whitenoise = "*"
-
 pyparsing = "*"
 pydot = "*"
 humanize = "*"
-
 flake8 = "*"
 flake8-import-order = "*"
 flake8-builtins = "*"
 flake8-print = "*"
 flake8-django = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8"
