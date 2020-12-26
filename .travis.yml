@@ -5,9 +5,7 @@ install:
   - pip install pipenv
   - pipenv install
 before_script:
-  - python manage.py migrate
-  - python manage.py collectstatic --noinput
   - export DJANGO_SECRET_KEY='test_key'
 script:
   - flake8 .
-  - python manage.py test
+  - python manage.py test  # for running tests from tutorial
