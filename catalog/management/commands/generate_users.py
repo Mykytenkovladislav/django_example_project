@@ -1,11 +1,11 @@
-from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand, CommandError
 
 from faker import Faker
 
 
 class Command(BaseCommand):
-    help = 'Creating a custom amount of users'
+    help = 'Creating a custom amount of users'  # noqa: A003
 
     def add_arguments(self, parser):
         parser.add_argument('users_amount', nargs='+', type=int)

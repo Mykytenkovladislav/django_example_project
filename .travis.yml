@@ -1,12 +1,13 @@
 language: python
 python:
-  - "3.8"
+  - "3.8.6"
 install:
   - pip install pipenv
   - pipenv install
 before_script:
   - python manage.py migrate
   - python manage.py collectstatic --noinput
+  - export DJANGO_SECRET_KEY='test_key'
 script:
   - flake8 .
   - python manage.py test
