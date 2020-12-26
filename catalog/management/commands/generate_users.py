@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from faker import Faker
 
 
-class GenerateUsers(BaseCommand):
+class Command(BaseCommand):
     help = 'Creating a custom amount of users'
 
     def add_arguments(self, parser):
@@ -12,16 +12,16 @@ class GenerateUsers(BaseCommand):
 
     def handle(self, *args, **options):
         fake = Faker()
-
-        for _ in options['users_amount']:
-            # generated_accounts: list = []
+        users_amount = options['users_amount']
+        if users_amount[0] < 1:
+            raise CommandError('Value can\'t be less then 1')
+        elif users_amount[0] > 10:
+            raise CommandError('Value can\'t be greater then 10')
+        for _ in range(users_amount[0]):
             account: str = fake.name()
-            firstname_lastname: list = account.split(' ')
-            first_name = firstname_lastname[0]
-            last_name = firstname_lastname[1]
-            username = password = account.lower().replace(' ', '')
+            username = account.lower().replace(' ', '')
             email = username + '@gmail.com'
-            password = username
-            generated_user = User.objects.create_user()
-
-        self.stdout.write(self.style.SUCCESS('Users successfully created!'))
+            password = username  # for visualization
+            User.objects.create_user(username, email, password)
+            self.stdout.write(f'{username} successfully created!')
+        self.stdout.write(self.style.SUCCESS('Users successfully generated!'))
