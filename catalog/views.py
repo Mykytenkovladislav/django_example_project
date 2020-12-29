@@ -1,5 +1,4 @@
 import datetime
-import math
 
 from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance
