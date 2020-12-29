@@ -1,6 +1,6 @@
 import datetime
 
-from catalog.forms import ContactFrom, RegisterForm, RenewBookForm
+from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance
 
 from django.contrib import messages
@@ -198,3 +198,45 @@ class BookDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
+
+
+def triangle(request):
+    if request.method == "GET":
+        form = TriangleCalculationForm()
+    else:
+        form = TriangleCalculationForm(request.POST)
+        if form.is_valid():
+            leg_a = form.cleaned_data['leg_a']
+            leg_b = form.cleaned_data['leg_b']
+            result = (leg_a ** 2 + leg_b ** 2) ** 0.5
+            return render(request, "catalog/triangle.html", context={"result": result, })
+    return render(
+        request,
+        "catalog/triangle.html",
+        context={
+            "form": form,
+        }
+    )
+
+# def contact_form(request):
+#     if request.method == "GET":
+#         form = ContactFrom()
+#     else:
+#         form = ContactFrom(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             from_email = form.cleaned_data['from_email']
+#             message = form.cleaned_data['message']
+#             try:
+#                 send_mail(subject, message, from_email, ['admin@example.com'])
+#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
+#             except BadHeaderError:
+#                 messages.add_message(request, messages.ERROR, 'Message not sent')
+#             return redirect('contact')
+#     return render(
+#         request,
+#         "catalog/contact.html",
+#         context={
+#             "form": form,
+#         }
+#     )
