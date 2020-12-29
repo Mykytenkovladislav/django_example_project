@@ -1,4 +1,5 @@
 import datetime
+import math
 
 from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance
@@ -208,7 +209,7 @@ def triangle(request):
         if form.is_valid():
             leg_a = form.cleaned_data['leg_a']
             leg_b = form.cleaned_data['leg_b']
-            result = leg_a + leg_b
+            result = (leg_a ** 2 + leg_b ** 2) ** 0.5
             return render(request, "catalog/triangle.html", context={"result": result, })
     return render(
         request,
