@@ -206,15 +206,10 @@ def triangle(request):
     else:
         form = TriangleCalculationForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
-            try:
-                send_mail(subject, message, from_email, ['admin@example.com'])
-                messages.add_message(request, messages.SUCCESS, 'Message sent')
-            except BadHeaderError:
-                messages.add_message(request, messages.ERROR, 'Message not sent')
-            return redirect('contact')
+            leg_a = form.cleaned_data['leg_a']
+            leg_b = form.cleaned_data['leg_b']
+            result = leg_a + leg_b
+            return render(request, "catalog/triangle.html", context={"result": result, })
     return render(
         request,
         "catalog/triangle.html",
@@ -222,3 +217,26 @@ def triangle(request):
             "form": form,
         }
     )
+
+# def contact_form(request):
+#     if request.method == "GET":
+#         form = ContactFrom()
+#     else:
+#         form = ContactFrom(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             from_email = form.cleaned_data['from_email']
+#             message = form.cleaned_data['message']
+#             try:
+#                 send_mail(subject, message, from_email, ['admin@example.com'])
+#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
+#             except BadHeaderError:
+#                 messages.add_message(request, messages.ERROR, 'Message not sent')
+#             return redirect('contact')
+#     return render(
+#         request,
+#         "catalog/contact.html",
+#         context={
+#             "form": form,
+#         }
+#     )

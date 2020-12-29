@@ -1,12 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Contact Us</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-actions">
-      <button type="submit">Send</button>
-    </div>
-  </form>
+    <h1>Hypotenuse calculation</h1>
+    {% if result is None %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <div class="form-actions">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+    {% else %}
+        <p> Гипотенуза равна {{result}} </p>
+    {% endif %}
 {% endblock %}
