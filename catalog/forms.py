@@ -39,3 +39,8 @@ class ContactFrom(forms.Form):
     from_email = forms.EmailField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
+
+
+class TriangleCalculationForm(forms.Form):
+    leg_a = forms.IntegerField(required=True, min_value=1, max_value=1000)
+    leg_b = forms.IntegerField(required=True, min_value=1, max_value=1000)
