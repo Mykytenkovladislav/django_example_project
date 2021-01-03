@@ -131,4 +131,4 @@ class AuthorProfile(models.Model):
 class Person(models.Model):
     first_name = models.CharField(_("first name"), max_length=100)
     last_name = models.CharField(_("last name"), max_length=100)
-    email = models.EmailField(_('email'), null=True, blank=True)
+    email = models.EmailField(_('email'), unique=True, null=True, blank=True)

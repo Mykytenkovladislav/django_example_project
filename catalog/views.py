@@ -216,4 +216,7 @@ def triangle(request):
 def person(request):
     if request.method == "GET":
         form = PersonModelForm()
+    else:
+        form = PersonModelForm(request.POST)
+        form.save()
     return render(request, "catalog/person.html", context={"form": form, })
