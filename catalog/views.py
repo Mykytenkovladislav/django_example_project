@@ -1,6 +1,6 @@
 import datetime
 
-from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm
+from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm, PersonModelForm
 from catalog.models import Author, Book, BookInstance
 
 from django.contrib import messages
@@ -210,14 +210,10 @@ def triangle(request):
             leg_b = form.cleaned_data['leg_b']
             result = (leg_a ** 2 + leg_b ** 2) ** 0.5
             return render(request, "catalog/triangle.html", context={"result": result, })
-    return render(
-        request,
-        "catalog/triangle.html",
-        context={
-            "form": form,
-        }
-    )
+    return render(request, "catalog/triangle.html", context={"form": form, })
 
 
-def person(self):
-    pass
+def person(request):
+    if request.method == "GET":
+        form = PersonModelForm()
+    return render(request, "catalog/person.html", context={"form": form, })
