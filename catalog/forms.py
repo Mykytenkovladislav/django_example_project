@@ -1,5 +1,7 @@
 import datetime
 
+from catalog.models import Person
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -44,3 +46,9 @@ class ContactFrom(forms.Form):
 class TriangleCalculationForm(forms.Form):
     leg_a = forms.IntegerField(required=True, min_value=1, max_value=1000)
     leg_b = forms.IntegerField(required=True, min_value=1, max_value=1000)
+
+
+class PersonModelForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ['id', 'first_name', 'last_name', 'email']

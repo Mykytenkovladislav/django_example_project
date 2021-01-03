@@ -1,7 +1,7 @@
 import datetime
 
-from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm
-from catalog.models import Author, Book, BookInstance
+from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, TriangleCalculationForm
+from catalog.models import Author, Book, BookInstance, Person
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -210,33 +210,35 @@ def triangle(request):
             leg_b = form.cleaned_data['leg_b']
             result = (leg_a ** 2 + leg_b ** 2) ** 0.5
             return render(request, "catalog/triangle.html", context={"result": result, })
-    return render(
-        request,
-        "catalog/triangle.html",
-        context={
-            "form": form,
-        }
-    )
+    return render(request, "catalog/triangle.html", context={"form": form, })
 
-# def contact_form(request):
-#     if request.method == "GET":
-#         form = ContactFrom()
-#     else:
-#         form = ContactFrom(request.POST)
-#         if form.is_valid():
-#             subject = form.cleaned_data['subject']
-#             from_email = form.cleaned_data['from_email']
-#             message = form.cleaned_data['message']
-#             try:
-#                 send_mail(subject, message, from_email, ['admin@example.com'])
-#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
-#             except BadHeaderError:
-#                 messages.add_message(request, messages.ERROR, 'Message not sent')
-#             return redirect('contact')
-#     return render(
-#         request,
-#         "catalog/contact.html",
-#         context={
-#             "form": form,
-#         }
-#     )
+
+def person(request):
+    if request.method == "GET":
+        form = PersonModelForm()
+    else:
+        form = PersonModelForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'Person successfully added')
+            except ValueError:  # TODO попросить помощи у Ярослава: почему-то не выводится messages.ERROR
+                messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
+            return redirect('person')
+    return render(request, "catalog/person.html", context={"form": form, })
+
+
+def person_update(request, pk):
+    item = get_object_or_404(Person, pk=pk)
+    if request.method == "GET":
+        form = PersonModelForm(instance=item)
+    else:
+        form = PersonModelForm(request.POST, instance=item)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'Person successfully updated')
+            except ValueError:  # FIXME the same as in 225 string
+                messages.add_message(request, messages.ERROR, "Person wasn't updated, check input data!")
+            return redirect('person-update', pk=pk)
+    return render(request, "catalog/person.html", context={"form": form, })
