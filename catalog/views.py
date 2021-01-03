@@ -1,6 +1,6 @@
 import datetime
 
-from catalog.forms import ContactFrom, RegisterForm, RenewBookForm, TriangleCalculationForm, PersonModelForm
+from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance, Person
 
 from django.contrib import messages
@@ -221,6 +221,7 @@ def person(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.add_message(request, messages.SUCCESS, 'Person successfully added')
             except ValueError:  # TODO попросить помощи у Ярослава: почему-то не выводится messages.ERROR
                 messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
             return redirect('person')
@@ -237,6 +238,7 @@ def person_update(request, pk):
             try:
                 form.save()
                 messages.add_message(request, messages.SUCCESS, 'Person successfully updated')
-            except ValueError:  # TODO попросить помощи у Ярослава: почему-то не выводится messages.ERROR
+            except ValueError:  # FIXME the same as in 225 string
                 messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
-    return render(request, "catalog/person_update.html", context={"form": form, })
+            return redirect('person-update', pk=pk)
+    return render(request, "catalog/person.html", context={"form": form, })
