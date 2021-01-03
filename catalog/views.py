@@ -222,7 +222,7 @@ def person(request):
             try:
                 form.save()
                 messages.add_message(request, messages.SUCCESS, 'Person successfully added')
-            except ValueError:  # TODO попросить помощи у Ярослава: почему-то не выводится messages.ERROR
+            except ValueError:
                 messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
             return redirect('person')
     return render(request, "catalog/person.html", context={"form": form, })
@@ -238,7 +238,7 @@ def person_update(request, pk):
             try:
                 form.save()
                 messages.add_message(request, messages.SUCCESS, 'Person successfully updated')
-            except ValueError:  # FIXME the same as in 225 string
+            except ValueError:
                 messages.add_message(request, messages.ERROR, "Person wasn't updated, check input data!")
             return redirect('person-update', pk=pk)
     return render(request, "catalog/person.html", context={"form": form, })
