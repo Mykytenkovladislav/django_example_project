@@ -239,6 +239,6 @@ def person_update(request, pk):
                 form.save()
                 messages.add_message(request, messages.SUCCESS, 'Person successfully updated')
             except ValueError:  # FIXME the same as in 225 string
-                messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
+                messages.add_message(request, messages.ERROR, "Person wasn't updated, check input data!")
             return redirect('person-update', pk=pk)
     return render(request, "catalog/person.html", context={"form": form, })
