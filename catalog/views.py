@@ -218,5 +218,33 @@ def person(request):
         form = PersonModelForm()
     else:
         form = PersonModelForm(request.POST)
-        form.save()
+        if form.is_valid():
+            try:
+                form.save()
+            except ValueError:  # TODO попросить помощи у Ярослава: почему-то не выводится messages.ERROR
+                messages.add_message(request, messages.ERROR, "Person wasn't created, check input data!")
+            return redirect('person')
     return render(request, "catalog/person.html", context={"form": form, })
+
+# def contact_form(request):  #TODO Delete example method
+#     if request.method == "GET":
+#         form = ContactFrom()
+#     else:
+#         form = ContactFrom(request.POST)
+#         if form.is_valid():
+#             subject = form.cleaned_data['subject']
+#             from_email = form.cleaned_data['from_email']
+#             message = form.cleaned_data['message']
+#             try:
+#                 send_mail(subject, message, from_email, ['admin@example.com'])
+#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
+#             except BadHeaderError:
+#                 messages.add_message(request, messages.ERROR, 'Message not sent')
+#             return redirect('contact')
+#     return render(
+#         request,
+#         "catalog/contact.html",
+#         context={
+#             "form": form,
+#         }
+#     )
