@@ -218,25 +218,6 @@ def triangle(request):
         }
     )
 
-# def contact_form(request):
-#     if request.method == "GET":
-#         form = ContactFrom()
-#     else:
-#         form = ContactFrom(request.POST)
-#         if form.is_valid():
-#             subject = form.cleaned_data['subject']
-#             from_email = form.cleaned_data['from_email']
-#             message = form.cleaned_data['message']
-#             try:
-#                 send_mail(subject, message, from_email, ['admin@example.com'])
-#                 messages.add_message(request, messages.SUCCESS, 'Message sent')
-#             except BadHeaderError:
-#                 messages.add_message(request, messages.ERROR, 'Message not sent')
-#             return redirect('contact')
-#     return render(
-#         request,
-#         "catalog/contact.html",
-#         context={
-#             "form": form,
-#         }
-#     )
+
+def person(self):
+    pass

@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from catalog.models import Person
+
 User = get_user_model()
 
 
@@ -44,3 +46,9 @@ class ContactFrom(forms.Form):
 class TriangleCalculationForm(forms.Form):
     leg_a = forms.IntegerField(required=True, min_value=1, max_value=1000)
     leg_b = forms.IntegerField(required=True, min_value=1, max_value=1000)
+
+
+class PersonModelForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ['id', 'first_name', 'last_name', 'email']
