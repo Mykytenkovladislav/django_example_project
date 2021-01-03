@@ -71,9 +71,9 @@ class BookInstance(models.Model):
 
     class LoanStatus(models.IntegerChoices):
         MAINTENANCE = 1, _('Maintenance')  # d
-        ON_LOAN = 2, _('On loan')          # o
-        AVAILABLE = 3, _("Available")      # a
-        RESERVED = 4, _("Reserved")        # r
+        ON_LOAN = 2, _('On loan')  # o
+        AVAILABLE = 3, _("Available")  # a
+        RESERVED = 4, _("Reserved")  # r
 
     id = models.UUIDField(  # noqa: A003
         primary_key=True, default=uuid.uuid4, help_text=_("Unique ID for this particular book across whole library")
@@ -126,3 +126,9 @@ class AuthorProfile(models.Model):
 
     def __str__(self):
         return f"{self.author.last_name} {self.author.first_name} Profile"
+
+
+class Person(models.Model):
+    first_name = models.CharField(_("first name"), max_length=100)
+    last_name = models.CharField(_("last name"), max_length=100)
+    email = models.EmailField(_('email'), null=True, blank=True)
