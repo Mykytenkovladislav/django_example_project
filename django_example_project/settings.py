@@ -20,7 +20,6 @@ from django.contrib.messages import constants as message_constants
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -34,7 +33,6 @@ ALLOWED_HOSTS = [
     "localhost",
     '127.0.0.1',
 ]
-
 
 # Application definition
 
@@ -60,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'catalog.middlewares.LogMiddleware',
 ]
 
 ROOT_URLCONF = 'django_example_project.urls'
@@ -83,7 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_example_project.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -115,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -129,13 +126,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
 # Add to test email:
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -151,7 +146,6 @@ STATICFILES_DIRS = [
 # Static file serving.
 # http://whitenoise.evans.io/en/stable/django.html#django-middleware
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # Messages
 MESSAGE_TAGS = {
