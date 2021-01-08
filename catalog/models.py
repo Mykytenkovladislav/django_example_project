@@ -141,3 +141,6 @@ class StoredRequest(models.Model):
     path = models.CharField(_('path'), max_length=2048)
     method = models.CharField(_('method'), max_length=10)
     timestamp = models.DateTimeField(_('timestamp'), auto_now=True)
+
+    def __str__(self):
+        return f"{self.path} {self.method} {self.timestamp}"
