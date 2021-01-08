@@ -79,3 +79,6 @@ class BookInstanceModelAdmin(admin.ModelAdmin):
     @admin.register(StoredRequest)
     class RequestsAdmin(admin.ModelAdmin):
         list_display = ['path', 'method', 'timestamp']
+        date_hierarchy = 'timestamp'
+        list_filter = ('method', 'timestamp')
+        list_per_page = 10
