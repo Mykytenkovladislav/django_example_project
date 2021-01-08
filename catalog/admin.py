@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, AuthorProfile, Book, BookInstance, Genre, Language, StoredRequests
+from .models import Author, AuthorProfile, Book, BookInstance, Genre, Language, StoredRequest
 
 
 @admin.register(Genre)
@@ -76,6 +76,6 @@ class BookInstanceModelAdmin(admin.ModelAdmin):
         }),
     )
 
-    @admin.register(StoredRequests)
+    @admin.register(StoredRequest)
     class RequestsAdmin(admin.ModelAdmin):
         list_display = ['path', 'method', 'timestamp']

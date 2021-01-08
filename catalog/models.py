@@ -137,7 +137,7 @@ class Person(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-class StoredRequests(models.Model):
+class StoredRequest(models.Model):
     path = models.CharField(_('path'), max_length=2048)
     method = models.CharField(_('method'), max_length=10)
     timestamp = models.DateTimeField(_('timestamp'), auto_now=True)
