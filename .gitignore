@@ -142,3 +142,4 @@ cython_debug/
 
 # staticfiles
 staticfiles/
+/my_project_subsystem.png
