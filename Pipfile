@@ -22,6 +22,7 @@ flake8-django = "*"
 faker = "*"
 pyreadline = "*"
 django-debug-toolbar = "*"
+django-silk = "*"
 
 [requires]
 python_version = "3.8"
