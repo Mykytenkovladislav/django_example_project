@@ -181,3 +181,14 @@ GRAPH_MODELS = {
     'app_labels': ["databases", ],
     'group_models': True,
 }
+
+
+# silk
+def my_custom_perms(user):
+    return user.is_superuser
+
+
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHENTICATION = True  # User must login
+SILKY_AUTHORISATION = True  # User must have permissions
+SILKY_PERMISSIONS = my_custom_perms
