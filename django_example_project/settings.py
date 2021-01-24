@@ -29,9 +29,14 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
+    '127.0.0.1',
+]
+
+INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
@@ -51,6 +56,12 @@ INSTALLED_APPS = [
     'databases.apps.DatabasesConfig',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'silk'
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -61,7 +72,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'catalog.middlewares.LogMiddleware',
+
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'silk.middleware.SilkyMiddleware',
+    ]
 
 ROOT_URLCONF = 'django_example_project.urls'
 
@@ -164,3 +182,14 @@ GRAPH_MODELS = {
     'app_labels': ["databases", ],
     'group_models': True,
 }
+
+
+# silk
+def my_custom_perms(user):
+    return user.is_superuser
+
+
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHENTICATION = True  # User must login
+SILKY_AUTHORISATION = True  # User must have permissions
+SILKY_PERMISSIONS = my_custom_perms
