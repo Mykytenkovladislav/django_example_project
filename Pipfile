@@ -21,6 +21,7 @@ flake8-print = "*"
 flake8-django = "*"
 faker = "*"
 pyreadline = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.8"

@@ -35,6 +35,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'debug_toolbar',
 
     'catalog.apps.CatalogConfig',
     'databases.apps.DatabasesConfig',
@@ -60,7 +65,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'catalog.middlewares.LogMiddleware',
+
 ]
 
 ROOT_URLCONF = 'django_example_project.urls'

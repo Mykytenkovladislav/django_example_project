@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "68a813f37584dade0477b5dabe1039da696321b7b9253ecf0230897bff7c939b"
+            "sha256": "38ee7ed33cebcd4c728203f039cc6d244d753b4aecdfb36143f7b45cfa226183"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -40,6 +40,14 @@
             "index": "pypi",
             "version": "==3.1.5"
         },
+        "django-debug-toolbar": {
+            "hashes": [
+                "sha256:84e2607d900dbd571df0a2acf380b47c088efb787dce9805aefeb407341961d2",
+                "sha256:9e5a25d0c965f7e686f6a8ba23613ca9ca30184daa26487706d4829f5cfb697a"
+            ],
+            "index": "pypi",
+            "version": "==3.2"
+        },
         "django-extensions": {
             "hashes": [
                 "sha256:7cd002495ff0a0e5eb6cdd6be759600905b4e4079232ea27618fc46bdd853651",
@@ -50,11 +58,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:47ac7d62d5bad8c16422a91f121430ab7656d40ca8fea9c84bcdbdf92e739b03",
-                "sha256:6bc44606d44f711e1d89ad9a5b42394cc6f7eedaffc765ddb5b2d22084c15733"
+                "sha256:0f8198d876bc65edd3699e2542c6ae13cc93fbc4a478c17db190d5d9b6ce790e",
+                "sha256:8fe22be90c0db35d830464918f84beb50f970f4caacae4d88e92692857b78aa7"
             ],
             "index": "pypi",
-            "version": "==5.5.0"
+            "version": "==5.6.5"
         },
         "flake8": {
             "hashes": [
@@ -262,11 +270,11 @@
         },
         "prompt-toolkit": {
             "hashes": [
-                "sha256:ac329c69bd8564cb491940511957312c7b8959bb5b3cf3582b406068a51d5bb7",
-                "sha256:b8b3d0bde65da350290c46a8f54f336b3cbf5464a4ac11239668d986852e79d5"
+                "sha256:7e966747c18ececaec785699626b771c1ba8344c8d31759a1915d6b12fad6525",
+                "sha256:c96b30925025a7635471dc083ffb6af0cc67482a00611bd81aeaeeeb7e5a5e12"
             ],
             "markers": "python_full_version >= '3.6.1'",
-            "version": "==3.0.10"
+            "version": "==3.0.14"
         },
         "ptyprocess": {
             "hashes": [
