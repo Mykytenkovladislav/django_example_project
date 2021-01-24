@@ -1,14 +1,13 @@
 import datetime
 
-from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, TriangleCalculationForm, \
-    SendEmailForm
+from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, SendEmailForm, \
+    TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance, Person
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -248,5 +247,13 @@ def send_email(request):
     if request.method == "GET":
         form = SendEmailForm()
     else:
-        form = PersonModelForm(request.POST)
+        form = SendEmailForm(request.POST)
+        if form.is_valid():
+            subject = 'Напоминание'
+            from_email = form.cleaned_data['email']
+            reminder = form.cleaned_data['reminder']
+            send_date = form.cleaned_data['date_and_time']
+            # celery_send_mail.delay(subject, reminder, from_email)
+            celery_send_mail.apply_async((subject, reminder, from_email), eta=send_date)
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
     return render(request, "catalog/send_email.html", context={"form": form, })
