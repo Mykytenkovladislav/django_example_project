@@ -23,6 +23,8 @@ faker = "*"
 pyreadline = "*"
 django-debug-toolbar = "*"
 django-silk = "*"
+celery = "*"
+django-celery-results = "*"
 
 [requires]
 python_version = "3.8"

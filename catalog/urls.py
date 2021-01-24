@@ -28,5 +28,7 @@ urlpatterns = [
     path('triangle/', views.triangle, name='triangle'),
 
     path('person/', views.person, name='person'),
-    path('person/<int:pk>', views.person_update, name='person-update')
+    path('person/<int:pk>', views.person_update, name='person-update'),
+
+    path('send_email/', views.send_email, name='send-email'),
 ]

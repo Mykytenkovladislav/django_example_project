@@ -8,6 +8,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+import pytz
+
 User = get_user_model()
 
 
@@ -52,3 +54,24 @@ class PersonModelForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ['id', 'first_name', 'last_name', 'email']
+
+
+class SendEmailForm(forms.Form):
+    email = forms.EmailField(required=True)
+    reminder = forms.CharField(widget=forms.Textarea, required=True)
+    date_and_time = forms.DateTimeField(required=True, input_formats=['2006-10-25 14:30'],
+                                        initial=datetime.datetime.now)
+
+    def clean_date_and_time(self):
+        data = self.cleaned_data['date_and_time']
+
+        utc = pytz.UTC
+
+        # Check date is not in past.
+        if data < utc.localize(datetime.datetime.today()):
+            raise forms.ValidationError(_('Invalid date - reminder send date in past'))
+        # Check date is in range librarian allowed to change (+2 days)
+        if data > utc.localize(datetime.datetime.today()) + datetime.timedelta(days=2):
+            raise forms.ValidationError(_('Invalid date - reminder send date is  more than 2 days ahead'))
+
+        return data
