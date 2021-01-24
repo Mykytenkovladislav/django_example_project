@@ -50,11 +50,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
-    'debug_toolbar',
 
     'catalog.apps.CatalogConfig',
     'databases.apps.DatabasesConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,10 +67,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'catalog.middlewares.LogMiddleware',
 
 ]
+
+if DEBUG:
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
 ROOT_URLCONF = 'django_example_project.urls'
 
