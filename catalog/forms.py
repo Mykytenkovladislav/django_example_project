@@ -52,3 +52,10 @@ class PersonModelForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ['id', 'first_name', 'last_name', 'email']
+
+
+class SendEmailForm(forms.Form):
+    email = forms.EmailField(required=True)
+    text = forms.CharField(widget=forms.Textarea, required=True)
+    date_and_time = forms.DateTimeField(required=True, input_formats=['2006-10-25 14:30'],
+                                        initial=datetime.datetime.now)

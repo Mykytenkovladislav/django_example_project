@@ -42,6 +42,7 @@
         <div class="col-sm-2">
             {% block sidebar %}
                 <ul class="sidebar-nav">
+                    <li><a href="{% url 'send-email' %}">Send reminder</a></li>
                     <li><a href="{% url 'person' %}">Person</a></li>
                     <li><a href="{% url 'triangle' %}">Triangle</a></li>
                     <li><a href="{% url 'index' %}">Home</a></li>
