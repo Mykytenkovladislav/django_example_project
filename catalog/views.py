@@ -256,4 +256,5 @@ def send_email(request):
             # celery_send_mail.delay(subject, reminder, from_email)
             celery_send_mail.apply_async((subject, reminder, from_email), eta=send_date)
             messages.add_message(request, messages.SUCCESS, 'Message sent')
+            return redirect('send-email')
     return render(request, "catalog/send_email.html", context={"form": form, })
