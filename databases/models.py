@@ -39,3 +39,21 @@ class Provider(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f"{self.provider_name}"
+
+
+class QuotesAuthor(models.Model):
+    author = models.CharField(_("author"), max_length=100)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.author}"
+
+
+class Quotes(models.Model):
+    quote = models.CharField(_('quote'))
+    author = models.ForeignKey("QuotesAuthor", verbose_name=_("author"), on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f"{self.quote}"
+
