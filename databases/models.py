@@ -50,10 +50,9 @@ class QuotesAuthor(models.Model):
 
 
 class Quotes(models.Model):
-    quote = models.CharField(_('quote'))
+    quote = models.CharField(_('quote'), max_length=1000)
     author = models.ForeignKey("QuotesAuthor", verbose_name=_("author"), on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         """String for representing the Model object."""
         return f"{self.quote}"
-
