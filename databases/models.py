@@ -42,7 +42,7 @@ class Provider(models.Model):
 
 
 class QuotesAuthor(models.Model):
-    author = models.CharField(_("author"), max_length=100)
+    author = models.CharField(_("author"), max_length=100, unique=True)
 
     def __str__(self):
         """String for representing the Model object."""

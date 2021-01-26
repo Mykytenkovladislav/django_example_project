@@ -1,6 +1,6 @@
 from django.contrib import admin  # noqa: F401
 
-from .models import QuotesAuthor, Quotes
+from .models import Quotes, QuotesAuthor
 
 
 @admin.register(QuotesAuthor)
