@@ -45,12 +45,11 @@ def scraping_task():
                     quote_record.save()
                     saved_quotes += 1
         if saved_quotes < 5:  # if not enough unique quotes on current page
-            if soup.find('li', {'class': 'next'}) is None:  # No "Next" button on current page
+            if soup.find('li', {'class': 'next'}) is None:  # If no "Next" button on current page
                 last_page = True
             else:
                 page_id += 1
-        else:
-            django_send_mail('Quotes', 'Still in progress', 'noreply@test.com', ['admin@example.com'])
+        else:  # If it was the last page break process and send mail
             break
     if last_page is True:
         django_send_mail('Quotes', 'All quotes added!', 'noreply@test.com', ['admin@example.com'])
