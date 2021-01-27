@@ -32,13 +32,16 @@ def scraping_task():
                 break
             else:
                 quote: str = i.select('.text')[0].contents[0]
-                if Quotes.objects.filter(quote=quote):  # Check duplicates in DB
+                if Quotes.objects.filter(quote=quote):  # Check duplicates in DB for quotes
                     continue
                 else:
                     author: str = i.select('.author')[0].contents[0]
-                    if QuotesAuthor.objects.filter(author=author):
+                    if QuotesAuthor.objects.filter(author=author):  # if author already in DB
                         author_record = QuotesAuthor.objects.get(author=author)
-                    else:
+                    else:  # if not then add to DB
+                        author_about_link = SITE + i.find_all('a')[0].get('href')  # take link part to author about
+                        author_about = requests.get(author_about_link)
+
                         author_record: QuotesAuthor = QuotesAuthor(author=author)
                         author_record.save()
                     quote_record: Quotes = Quotes(quote=quote, author=author_record)
@@ -51,5 +54,5 @@ def scraping_task():
                 page_id += 1
         else:  # If it was the last page break process and send mail
             break
-    if last_page is True:
+    if last_page is True:  # send finish mail
         django_send_mail('Quotes', 'All quotes added!', 'noreply@test.com', ['admin@example.com'])

@@ -43,6 +43,8 @@ class Provider(models.Model):
 
 class QuotesAuthor(models.Model):
     author = models.CharField(_("author"), max_length=100, unique=True)
+    date_of_birth = models.DateField(_("date of birth"), null=True, blank=True)
+    born_in = models.CharField(_("born in"), max_length=2500)
 
     def __str__(self):
         """String for representing the Model object."""
