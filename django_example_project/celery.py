@@ -21,7 +21,6 @@ app.conf.beat_schedule = {
     # executes every 1 minute
     'scraping-task-one-min': {
         'task': 'databases.tasks.scraping_task',
-        'schedule': crontab(),
-        # 'schedule': crontab(hour='1-23/2'),
+        'schedule': crontab(hour='1-23/2'),
     }
 }

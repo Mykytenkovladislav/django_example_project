@@ -2,8 +2,10 @@ from bs4 import BeautifulSoup
 
 from celery import shared_task
 
-from django.core.mail import send_mail as django_send_mail
 from databases.models import Quotes, QuotesAuthor
+
+from django.core.mail import send_mail as django_send_mail
+
 
 import requests
 
@@ -26,7 +28,6 @@ def scraping_task():
         r = requests.get(PAGE_URL)
         soup = BeautifulSoup(r.text, 'html.parser')
         text = soup.find_all('div', {'class': 'quote'})  # find quotes by 'quote' class
-        quotes_on_page = len(text)
         for i in text:
             if saved_quotes > 4:  # if 5 quotes already saved
                 break
@@ -40,9 +41,21 @@ def scraping_task():
                         author_record = QuotesAuthor.objects.get(author=author)
                     else:  # if not then add to DB
                         author_about_link = SITE + i.find_all('a')[0].get('href')  # take link part to author about
-                        author_about = requests.get(author_about_link)
-
-                        author_record: QuotesAuthor = QuotesAuthor(author=author)
+                        r = requests.get(author_about_link)
+                        # parse author details page
+                        soup = BeautifulSoup(r.text, 'html.parser')
+                        born_date = soup.find('span', {'class': 'author-born-date'}).contents[0]
+                        born_location = soup.find('span', {'class': 'author-born-location'}).contents[0]
+                        author_description = soup.find('div', {'class': 'author-description'}).contents[0].replace(
+                            '\n', ''
+                        )
+                        #  add Author to DB
+                        author_record: QuotesAuthor = QuotesAuthor(
+                            author=author,
+                            date_of_birth=born_date,
+                            born_in=born_location,
+                            description=author_description
+                        )
                         author_record.save()
                     quote_record: Quotes = Quotes(quote=quote, author=author_record)
                     quote_record.save()
