@@ -25,6 +25,9 @@ django-debug-toolbar = "*"
 django-silk = "*"
 celery = "*"
 django-celery-results = "*"
+termcolor = "*"
+beautifulsoup4 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
