@@ -18,6 +18,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
+    # executes every 1 minute
     'scraping-task-one-min': {
         'task': 'databases.tasks.scraping_task',
         'schedule': crontab(hour='1-23/2'),
