@@ -5,6 +5,11 @@
     <title>Clients list</title>
 </head>
 <body>
+<div class='alert alert-warning'>
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
 <h1>Clients</h1>
 <ul>
     {% for clients in object_list %}

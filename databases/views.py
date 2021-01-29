@@ -1,12 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
-from django.shortcuts import render, redirect  # noqa: F401
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic.edit import CreateView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
+
 from django.views.generic.list import ListView
 
 from databases.models import Client
@@ -40,7 +39,7 @@ class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     fields = ['first_name', 'last_name', 'product', 'city']
     login_url = '/admin/login/'
     success_url = reverse_lazy('client-list')
-    success_message = "%(first_name)s was updated successfully!"
+    success_message = "%(first_name)s was deleted successfully!"
     redirect_field_name = 'admin'
     queryset = Client.objects
 
@@ -53,3 +52,8 @@ class ClientListView(ListView):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
+
+
+class ClientDetailView(DetailView):
+    model = Client
+    context_object_name = 'product_details'
