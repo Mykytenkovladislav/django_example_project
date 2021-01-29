@@ -30,6 +30,7 @@ urlpatterns = [
                   path('catalog/', include('catalog.urls')),
                   path('accounts/', include('django.contrib.auth.urls')),
                   path("accounts/register/", RegisterFormView.as_view(), name="register"),
+                  path('databases/', include('databases.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

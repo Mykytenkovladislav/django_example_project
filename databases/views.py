@@ -1,3 +1,55 @@
-from django.shortcuts import render  # noqa: F401
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
+from django.shortcuts import render, redirect  # noqa: F401
+from django.urls import reverse_lazy
+from django.utils import timezone
+from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
 
-# Create your views here.
+from databases.models import Client
+
+
+def index(request):
+    return HttpResponse("Index")
+
+
+class ClientCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Client
+    fields = ['first_name', 'last_name', 'product', 'city']
+    login_url = '/admin/login/'
+    template_name = 'databases/client_form.html'
+    success_url = reverse_lazy('client-create')
+    success_message = "%(first_name)s was created successfully!"
+    redirect_field_name = 'admin'
+
+
+class ClientUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Client
+    fields = ['first_name', 'last_name', 'product', 'city']
+    login_url = '/admin/login/'
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('client-update')
+    success_message = "%(first_name)s was updated successfully!"
+    redirect_field_name = 'admin'
+
+
+class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    fields = ['first_name', 'last_name', 'product', 'city']
+    login_url = '/admin/login/'
+    success_url = reverse_lazy('client-list')
+    success_message = "%(first_name)s was updated successfully!"
+    redirect_field_name = 'admin'
+    queryset = Client.objects
+
+
+class ClientListView(ListView):
+    model = Client
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
