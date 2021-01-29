@@ -31,9 +31,6 @@ def scraping_task():
         for i in text:
             if saved_quotes > 4:  # if 5 quotes already saved
                 break
-            quote: str = i.select('.text')[0].contents[0]
-            if Quotes.objects.filter(quote=quote):  # Check duplicates in DB for quotes
-                continue
             else:
                 author: str = i.select('.author')[0].contents[0]
                 if QuotesAuthor.objects.filter(author=author):  # if author already in DB
