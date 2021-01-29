@@ -43,9 +43,9 @@ class Provider(models.Model):
 
 class QuotesAuthor(models.Model):
     author = models.CharField(_("author"), max_length=100, unique=True)
-    date_of_birth = models.CharField(_("author"), max_length=100, unique=True)
+    date_of_birth = models.CharField(_("author"), max_length=100)
     born_in = models.CharField(_("born in"), max_length=100)
-    description = models.CharField(_('description'), max_length=6000)
+    description = models.TextField(_('description'), max_length=6000)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -53,7 +53,7 @@ class QuotesAuthor(models.Model):
 
 
 class Quotes(models.Model):
-    quote = models.CharField(_('quote'), max_length=1000)
+    quote = models.TextField(_('quote'), max_length=1000)
     author = models.ForeignKey("QuotesAuthor", verbose_name=_("author"), on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
