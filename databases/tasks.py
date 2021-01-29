@@ -49,13 +49,13 @@ def scraping_task():
                         '\n', ''
                     )
                     #  add Author to DB
-                    author_record: QuotesAuthor = QuotesAuthor.objects.create(
+                    author_record = QuotesAuthor.objects.create(
                         author=author,
                         date_of_birth=born_date,
                         born_in=born_location,
                         description=author_description
                     )
-                quote_record: Quotes = Quotes.objects.create(quote=quote, author=author_record)
+                Quotes.objects.create(quote=quote, author=author_record)
                 saved_quotes += 1
         if saved_quotes < 5:  # if not enough unique quotes on current page
             if soup.find('li', {'class': 'next'}) is None:  # If no "Next" button on current page
