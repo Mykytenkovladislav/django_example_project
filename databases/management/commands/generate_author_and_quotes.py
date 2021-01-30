@@ -1,4 +1,5 @@
 from databases.models import Quotes, QuotesAuthor
+
 from django.core.management.base import BaseCommand, CommandError
 
 from faker import Faker

@@ -1,12 +1,9 @@
-from django.views.decorators.cache import cache_page
-
-from databases.models import Client, Quotes, QuotesAuthor
+from databases.models import Client, Quotes
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
