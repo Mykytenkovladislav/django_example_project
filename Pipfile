@@ -28,6 +28,7 @@ django-celery-results = "*"
 termcolor = "*"
 beautifulsoup4 = "*"
 requests = "*"
+django-redis = "*"
 
 [requires]
 python_version = "3.8"
