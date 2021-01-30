@@ -1,4 +1,4 @@
-from databases.models import Client
+from databases.models import Client, Quotes, QuotesAuthor
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -45,14 +45,14 @@ class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 class ClientListView(ListView):
     model = Client
-    paginate_by = 3
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
-        return context
+    paginate_by = 100
 
 
 class ClientDetailView(DetailView):
     model = Client
     context_object_name = 'product_details'
+
+
+class QuotesListView(ListView):
+    model = Quotes
+    paginate_by = 100
