@@ -1,3 +1,5 @@
+from django.views.decorators.cache import cache_page
+
 from databases.models import Client, Quotes, QuotesAuthor
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -56,3 +58,5 @@ class ClientDetailView(DetailView):
 class QuotesListView(ListView):
     model = Quotes
     paginate_by = 100
+
+    queryset = Quotes.objects.select_related('author').all()
