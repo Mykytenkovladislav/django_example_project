@@ -1,10 +1,9 @@
-from databases.models import Client
+from databases.models import Client, Quotes
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -45,14 +44,16 @@ class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 class ClientListView(ListView):
     model = Client
-    paginate_by = 3
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
-        return context
+    paginate_by = 100
 
 
 class ClientDetailView(DetailView):
     model = Client
     context_object_name = 'product_details'
+
+
+class QuotesListView(ListView):
+    model = Quotes
+    paginate_by = 100
+
+    queryset = Quotes.objects.select_related('author').all()

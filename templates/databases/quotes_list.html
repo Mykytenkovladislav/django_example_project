@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clients list</title>
+    <title>Quotes list</title>
 </head>
 <body>
 <div class='alert alert-warning'>
@@ -10,12 +10,13 @@
             {{ message }}
         {% endfor %}
     </div>
-<h1>Clients</h1>
-<ul>
-    {% for clients in object_list %}
-        <li>{{ clients.first_name }} {{ clients.last_name }}</li>
+<h1>Quotes</h1>
+<ol>
+    {% for quote in object_list %}
+        <li>{{ quote.quote }}</li>
+        <p>{{ quote.author.author }}</p>
     {% empty %}
-        <li>No clients yet</li>
+        <li>No quotes yet</li>
     {% endfor %}
 <br>
 <div class="pagination">
@@ -28,13 +29,12 @@
         <span class="current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
-
         {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}">next</a>
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>
-</ul>
+</ol>
 </body>
 </html>
