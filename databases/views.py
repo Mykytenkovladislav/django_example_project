@@ -39,7 +39,7 @@ class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('client-list')
     success_message = "%(first_name)s was deleted successfully!"
     redirect_field_name = 'admin'
-    queryset = Client.objects
+    queryset = Client.objects.objects.all()
 
 
 class ClientListView(ListView):
