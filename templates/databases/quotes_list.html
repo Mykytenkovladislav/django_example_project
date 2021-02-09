@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quotes list</title>
-</head>
-<body>
-<div class='alert alert-warning'>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Quotes list</title>
+    </head>
+    <body>
+    <div class='alert alert-warning'>
         {% for message in messages %}
             {{ message }}
         {% endfor %}
     </div>
-<h1>Quotes</h1>
-<ol>
-    {% for quote in object_list %}
-        <li>{{ quote.quote }}</li>
-        <p>{{ quote.author.author }}</p>
-    {% empty %}
-        <li>No quotes yet</li>
-    {% endfor %}
-<br>
-<div class="pagination">
+    <h1>Quotes</h1>
+    <ol>
+        {% for quote in object_list %}
+            <li>{{ quote.quote }}</li>
+            <p>{{ quote.author.author }}</p>
+        {% empty %}
+            <li>No quotes yet</li>
+        {% endfor %}
+        <br>
+        <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -34,7 +36,8 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
-</ol>
-</body>
-</html>
+        </div>
+    </ol>
+    </body>
+    </html>
+{% endblock %}

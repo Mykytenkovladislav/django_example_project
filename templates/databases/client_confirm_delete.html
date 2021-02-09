@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Are you sure about this?</title>
-</head>
-<body>
-<form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
-</body>
-</html>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Are you sure about this?</title>
+    </head>
+    <body>
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+    </body>
+{% endblock %}

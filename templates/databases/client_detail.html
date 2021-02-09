@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Client details</title>
-</head>
-<body>
-<h1>{{ object.first_name }} {{ object.last_name }}</h1>
-<p>{{ object.content }}</p>
-<p>City: {{ object.city }}</p>
-<p>Products:</p>
-<ul>
-{% for product in product_details.product.all %}
-    <li>{{ product }}</li>
-{% endfor %}
-</ul>
-</body>
-</html>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Client details</title>
+    </head>
+    <body>
+    <h1>{{ object.first_name }} {{ object.last_name }}</h1>
+    <p>{{ object.content }}</p>
+    <p>City: {{ object.city }}</p>
+    <p>Products:</p>
+    <ul>
+        {% for product in product_details.product.all %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+    </body>
+{% endblock %}
