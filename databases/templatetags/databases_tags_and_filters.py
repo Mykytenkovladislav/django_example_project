@@ -1,13 +1,11 @@
-from django import template
-from django.template.defaultfilters import stringfilter
+import json
+import os
+import re
 
 from databases.models import Quotes
 
-import json
-
-import os
-
-import re
+from django import template
+from django.template.defaultfilters import stringfilter
 
 register = template.Library()
 
