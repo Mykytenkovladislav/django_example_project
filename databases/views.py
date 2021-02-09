@@ -2,7 +2,7 @@ from databases.models import Client, Quotes
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -10,7 +10,7 @@ from django.views.generic.list import ListView
 
 
 def index(request):
-    return HttpResponse("Index")
+    return render(request, 'databases/databases_index.html', )
 
 
 class ClientCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -38,7 +38,7 @@ class ClientDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     login_url = '/admin/login/'
     success_url = reverse_lazy('client-list')
     success_message = "%(first_name)s was deleted successfully!"
-    redirect_field_name = 'admin' 
+    redirect_field_name = 'admin'
 
 
 class ClientListView(ListView):

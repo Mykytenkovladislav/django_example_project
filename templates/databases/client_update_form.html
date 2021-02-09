@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Client update</title>
-</head>
-<body>
-<h1>Client update form</h1>
-<form method="post">{% csrf_token %}
-    <div class='alert alert-warning'>
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-    {{ form.as_p }}
-    <input type="submit" value="Update">
-</form>
-</body>
-</html>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Client update</title>
+    </head>
+    <body>
+    <h1>Client update form</h1>
+    <form method="post">{% csrf_token %}
+        <div class='alert alert-warning'>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+    </body>
+{% endblock %}
