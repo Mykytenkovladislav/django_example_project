@@ -9,11 +9,11 @@ $(function () {
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
-        $("#modal-book .modal-content").html("");
-        $("#modal-book").modal("show");
+        $("#contact-ajax .modal-content").html("");
+        $("#contact-ajax").modal("show");
       },
       success: function (data) {
-        $("#modal-book .modal-content").html(data.html_form);
+        $("#contact-ajax.modal-content").html(data.html_form);
       }
     });
   };
@@ -28,10 +28,10 @@ $(function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#book-table tbody").html(data.html_book_list);
-          $("#modal-book").modal("hide");
+          $("#contact-ajax").modal("hide");
         }
         else {
-          $("#modal-book .modal-content").html(data.html_form);
+          $("#contact-ajax .modal-content").html(data.html_form);
         }
       }
     });
@@ -42,7 +42,7 @@ $(function () {
   /* Binding */
 
   // Create book
-  $(".js-create-book").click(loadForm);
-  $("#modal-book").on("submit", ".js-book-create-form", saveForm);
+  $(".js-contact-ajax").click(loadForm);
+  $("#contact-ajax").on("submit", ".js-book-create-form", saveForm);
 
 });
