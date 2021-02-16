@@ -1,6 +1,6 @@
 import datetime
 
-from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, SendEmailForm, \
+from catalog.forms import ContactForm, PersonModelForm, RegisterForm, RenewBookForm, SendEmailForm, \
     TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance, Person
 
@@ -45,9 +45,9 @@ def index(request):
 
 def contact_form(request):
     if request.method == "GET":
-        form = ContactFrom()
+        form = ContactForm()
     else:
-        form = ContactFrom(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
             from_email = form.cleaned_data['from_email']
@@ -258,3 +258,24 @@ def send_email(request):
             messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('send-email')
     return render(request, "catalog/send_email.html", context={"form": form, })
+
+
+def contact_form_ajax(request):
+    if request.method == "GET":
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            celery_send_mail.delay(subject, message, from_email)
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
+            return redirect('contact')
+    return render(
+        request,
+        "include/contact_ajax.html",
+        context={
+            "form": form,
+        }
+    )

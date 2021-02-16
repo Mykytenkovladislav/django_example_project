@@ -29,6 +29,7 @@ termcolor = "*"
 beautifulsoup4 = "*"
 requests = "*"
 django-redis = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -14,10 +14,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
             integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
             crossorigin="anonymous"></script>
-
-
+    {% block extra_css %}
+    {% endblock %}
+    {% block extra_js %}
+        <script src="{% static 'js/books.js' %}"></script>
+    {% endblock %}
     <!-- Add additional CSS in static file -->
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -72,6 +74,15 @@
                     </ul>
                 {% endif %}
 
+                <ul class="sidebar-nav">
+                    <li>
+                        <button type="button" class="btn btn-primary js-create-book"
+                                data-url="{% url 'contact-ajax' %}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            New book
+                        </button>
+                    </li>
+                </ul>
             {% endblock %}
         </div>
         <div class="col-sm-10 ">
