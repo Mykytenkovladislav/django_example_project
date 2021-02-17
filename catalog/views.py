@@ -8,8 +8,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
@@ -261,6 +262,7 @@ def send_email(request):
 
 
 def contact_form_ajax(request):
+    data = dict()
     if request.method == "GET":
         form = ContactForm()
     else:
@@ -271,11 +273,13 @@ def contact_form_ajax(request):
             message = form.cleaned_data['message']
             celery_send_mail.delay(subject, message, from_email)
             messages.add_message(request, messages.SUCCESS, 'Message sent')
-            return redirect('contact')
-    return render(
-        request,
-        "include/contact_ajax.html",
-        context={
-            "form": form,
-        }
+            return redirect('index')
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name='include/contact_ajax.html',
+        context=context,
+        request=request
     )
+    return JsonResponse(data)

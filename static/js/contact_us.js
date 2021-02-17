@@ -18,7 +18,7 @@ $(function () {
     });
   };
 
-  var saveForm = function () {
+  var sendForm = function () {
     var form = $(this);
     $.ajax({
       url: form.attr("action"),
@@ -27,7 +27,6 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#book-table tbody").html(data.html_book_list);
           $("#contact-ajax").modal("hide");
         }
         else {
@@ -43,6 +42,6 @@ $(function () {
 
   // Create book
   $(".js-contact-ajax").click(loadForm);
-  $("#contact-ajax").on("submit", ".js-book-create-form", saveForm);
+  $("#contact-ajax").on("submit", ".js-book-create-form", sendForm);
 
 });
