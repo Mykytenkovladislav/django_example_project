@@ -1,6 +1,6 @@
 import datetime
 
-from catalog.forms import ContactFrom, PersonModelForm, RegisterForm, RenewBookForm, SendEmailForm, \
+from catalog.forms import ContactForm, PersonModelForm, RegisterForm, RenewBookForm, SendEmailForm, \
     TriangleCalculationForm
 from catalog.models import Author, Book, BookInstance, Person
 
@@ -8,8 +8,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
@@ -45,9 +46,9 @@ def index(request):
 
 def contact_form(request):
     if request.method == "GET":
-        form = ContactFrom()
+        form = ContactForm()
     else:
-        form = ContactFrom(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
             from_email = form.cleaned_data['from_email']
@@ -258,3 +259,27 @@ def send_email(request):
             messages.add_message(request, messages.SUCCESS, 'Message sent')
             return redirect('send-email')
     return render(request, "catalog/send_email.html", context={"form": form, })
+
+
+def contact_form_ajax(request):
+    data = dict()
+    if request.method == "GET":
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            celery_send_mail.delay(subject, message, from_email)
+            messages.add_message(request, messages.SUCCESS, 'Message sent')
+            return redirect('index')
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(
+        template_name='include/contact_ajax.html',
+        context=context,
+        request=request
+    )
+    return JsonResponse(data)

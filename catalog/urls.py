@@ -31,4 +31,6 @@ urlpatterns = [
     path('person/<int:pk>', views.person_update, name='person-update'),
 
     path('send_email/', views.send_email, name='send-email'),
+
+    path('contact_ajax/', views.contact_form_ajax, name='contact-ajax'),
 ]
