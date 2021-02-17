@@ -13,7 +13,7 @@ $(function () {
         $("#contact-ajax").modal("show");
       },
       success: function (data) {
-        $("#contact-ajax.modal-content").html(data.html_form);
+        $("#contact-ajax .modal-content").html(data.html_form);
       }
     });
   };
